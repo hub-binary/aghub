@@ -1,0 +1,5 @@
+@import url('./font/fonts/bootstrap-icons.woff');
+
+[class*="bi-"]{
+  margin: 0px 5px;
+}

@@ -1,0 +1,17 @@
+{% extends './base.html' %}
+
+{% load static humanize %}
+
+{% comment %} Sermon Detail{% endblock %} {% endcomment %}
+
+{% block content %}
+<div class="container pb-5 my-5">
+    <h1 class="mb-5 fw-bold"> {{ sermon.sermon_title }} </h1>
+    
+    <img class="w-100" src="{{ sermon.cover_image.url }}">
+    <h4 class="my-3">Speaker: {{ sermon.speaker }}</h4>
+    <h4 class="my-3 fw-bold"><i class="bi-alarm"></i>  Date: {{ sermon.date_released|naturalday }}</h4>
+    <p class="bg-light p-3"> {{ sermon.description }}</p>
+
+</div>
+{% endblock %}

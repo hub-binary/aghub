@@ -1,0 +1,147 @@
+{% load static tz %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+		
+		<title>Assemblies of God Church - Revival Center </title>
+
+
+		<!-- Loading css file -->
+		<link href="{% static 'public/css/bootstrap.min.css' %}" rel="stylesheet">
+		<link href="{% static 'public/css/bootstrap-utilities.min.css' %}" rel="stylesheet">
+		<link href="{% static 'public/font/bootstrap-icons.min.css' %}" rel="stylesheet">
+		<link href="{% static 'public/style.css' %}" rel="stylesheet">
+
+		{% block extra_head %}{% endblock extra_head %}
+	
+	</head>
+
+
+	<body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Eighth navbar example">
+			<div class="container">
+			  <a class="navbar-brand" href="{% url 'public:home' %}"> AGC Barnawa  </a>
+			  <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+		
+			  <div class="navbar-collapse collapse" id="navbarsExample07" style="">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				  <li class="nav-item">
+					<a class="nav-link" href="{% url 'public:home' %}">Home</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" href="{% url 'public:sermons' %}">Sermons</a>
+				  </li>
+
+				  <li class="nav-item">
+					<a class="nav-link" href="{% url 'public:events' %}">Events</a>
+				  </li>
+				  
+				  <li class="nav-item">
+					<a class="nav-link" href="{% url 'public:week' %}">Weekly Schedule</a>
+				  </li>
+				  <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"> Pay Your </a>
+					<ul class="dropdown-menu">
+					  <li><a class="dropdown-item" href="#">Action</a></li>
+					  <li><a class="dropdown-item" href="#">Another action</a></li>
+					  <li><a class="dropdown-item" href="#">Something else here</a></li>
+					</ul>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+		  </nav>
+		
+		<div>
+			{% if breadcrumbs %}
+			<nav aria-label="breadcrumb" class="container my-5">
+				<ol class="breadcrumb breadcrumb-chevron navbar-dark p-3 bg-secondary text-white rounded-3">
+					{% for label, url in breadcrumbs %}
+						{% if url == request.path %}
+						<li class="breadcrumb-item active text-white-50" aria-current="page">
+							{{ label }}
+						</li>
+						{% elif url %}
+						<li class="breadcrumb-item">
+							<a class="link-body-emphasis text-white fw-semibold text-decoration-none" href="{{url}}">{{label}}</a>
+						</li>
+						{% else %}
+						<li class="breadcrumb-item">
+							<a class="link-body-emphasis text-white" href="{% url 'public:home' %}">
+								<svg class="bi" width="16" height="16"><use xlink:href="#house-door-fill"></use></svg>
+								<span class="visually-hidden">Home</span>
+							</a>
+						</li>
+						{% endif %}
+						{% endfor %}
+					</ol>
+				</nav>
+				{% endif %}
+
+
+		{% block content %}{% endblock content %}
+
+		</div>
+
+		<div class="bg-dark">
+			<div class="container text-white">
+				<footer class="py-5">
+					<div class="row">
+					<div class="col-6 col-md-2 mb-3">
+						<h5>Useful Links</h5>
+						<ul class="nav flex-column text-white">
+							<li class="nav-item mb-2"><a href="{% url 'public:home' %}" class="nav-link p-0 text-white">Home</a></li>
+							<li class="nav-item mb-2"><a href="{% url 'public:home' %}#about-us" class="nav-link p-0 text-white">About</a></li>
+							<li class="nav-item mb-2"><a href="{% url 'public:sermons' %}" class="nav-link p-0 text-white">Sermons</a></li>
+							<li class="nav-item mb-2"><a href="{% url 'public:events' %}" class="nav-link p-0 text-white">Events</a></li>
+							<li class="nav-item mb-2"><a href="{% url 'public:week' %}" class="nav-link p-0 text-white">Weekly Schedule</a></li>
+						</ul>
+					</div>
+				
+					<div class="col-6 col-md-2 mb-3">
+						<h5>Members Only</h5>
+						<ul class="nav flex-column text-white">
+							<li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white"> Site Admin </a></li>
+							<li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">About</a></li>
+						</ul>
+					</div>
+				
+					<div class="col-md-5 offset-md-1 mb-3">
+						<form>
+						<h5>Subscribe to our newsletter</h5>
+						<p>Receive updates and information about events from us.</p>
+						<div class="d-flex flex-column flex-sm-row w-100 gap-2">
+							<label for="newsletter1" class="visually-hidden">Email address</label>
+							<input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+							<button class="btn btn-primary" type="button">Subscribe</button>
+						</div>
+						</form>
+					</div>
+					</div>
+				
+					<div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+					<p>© {% now "Y" %} Assemblies of God Church, Revival Center. All rights reserved.</p>
+					<ul class="list-unstyled d-flex">
+						<li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+						<li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+						<li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+					</ul>
+					</div>
+				</footer>
+				</div>
+
+			</div>
+		</div>
+		<script src="{% static 'public/js/jquery-1.11.1.min.js' %}"></script>
+		<script src="{% static 'public/js/plugins.js' %}"></script>
+		<script src="{% static 'public/js/bootstrap.min.js' %}"></script>
+		
+	</body>
+
+</html>
