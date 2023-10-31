@@ -14,7 +14,7 @@ urlpatterns = [
     path('contact/', contact_view, name='contact'),
     path('sermons/', sermons_view, name='sermons'),
     path('sermons/<slug>/', sermon_download_view, name='sermon-download'),
-    path('events/', contact_view, name='events'),
+    path('events/', events_view, name='events'),
     path('week/', weekly_schedule_view, name='week'),
     path('', home_view, name='home'),
 ]

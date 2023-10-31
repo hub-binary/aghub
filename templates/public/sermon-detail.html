@@ -12,6 +12,6 @@
     <h4 class="my-3">Speaker: {{ sermon.speaker }}</h4>
     <h4 class="my-3 fw-bold"><i class="bi-alarm"></i>  Date: {{ sermon.date_released|naturalday }}</h4>
     <p class="bg-light p-3"> {{ sermon.description }}</p>
-
+    <a href="{% url 'public:sermon-download' sermon.url_title %}?download=true" type="button" class="btn btn-sm btn-danger">Download</a>
 </div>
 {% endblock %}

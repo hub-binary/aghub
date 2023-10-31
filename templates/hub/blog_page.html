@@ -1,0 +1,76 @@
+{% extends './blog_index.html' %}
+{% load static humanize %}
+{% load wagtailcore_tags %}
+
+
+{% block nav %}
+<nav aria-label="breadcrumb" class="container my-5">
+    <ol class="breadcrumb breadcrumb-chevron navbar-dark p-3 bg-secondary text-white rounded-3">
+        <li class="breadcrumb-item">
+            <a class="link-body-emphasis text-white" href="/blog">
+                <svg class="bi" width="16" height="16"><use xlink:href="#house-door-fill"></use></svg>
+                <span class="link-body-emphasis text-white fw-semibold text-decoration-none">Blog Home</span>
+            </a>
+        </li>
+
+        <li class="breadcrumb-item">
+           {{ page.title }}
+        </li>
+    </ol>
+</nav>
+{% endblock nav %}
+
+
+{% block blogpost %}
+    
+<div class="row g-5 mb-5 pb-5">
+    <div class="col-md-8">
+            
+        <div class="pb-4 mb-4 fst-italic border-bottom">
+            <h2 class="display-5 link-body-emphasis mb-1">{{ page.title }}</h2>
+            <p class="blog-post-meta">{{ page.date }} by <a href="#">{{ page.author|default:"AG Media" }}</a></p>
+        </div>
+
+        <article class="blog-post">
+
+            {{ page.body|richtext }}
+        </article>
+
+        <nav class="blog-pagination" aria-label="Pagination">
+            <a class="btn btn-outline-primary rounded-pill" href="#">Older</a>
+            <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Newer</a>
+        </nav>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="position-sticky" style="top: 2rem;">
+            <div class="p-4 mb-3 bg-body-tertiary rounded">
+            <h4 class="fst-italic">About Our Blog</h4>
+            <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+            </div>
+
+            <div>
+            <h4 class="fst-italic">Recent posts</h4>
+            <ul class="list-unstyled">
+                {% for post in recent_posts %}
+                    <li>
+                        <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border px-2 rounded" href="{{post.url}}">
+                            <img class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" src="{{ post.blogpage.feed_image.file.url}}" />
+                            <div class="col-lg-8">
+                            <h6 class="mb-0">{{ post.title }}</h6>
+                            <small class="text-body-secondary"> {{ post.blogpage.date }} </small>
+                            </div>
+                        </a>
+                    </li>
+                {% empty %}
+                {% endfor %}
+            </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock blogpost %}
+

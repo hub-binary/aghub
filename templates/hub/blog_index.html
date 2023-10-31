@@ -1,0 +1,60 @@
+{% extends '../public/base.html' %}
+{% load static humanize %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="container">
+    
+    {% block nav %}
+    {% endblock nav %}
+
+    {% block blogpost %}
+        <div class="p-3 mt-4">
+            <h1> {{page.title}} </h1>
+        </div>
+
+
+        <main class="px-3 my-2 pb-4">
+            {{ page.body|richtext }}
+
+            <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+                <div class="col-lg-6 px-0">
+                <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
+                <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+                <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                {% for post in blogposts %}
+                <div class="col-md-6">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-primary-emphasis">Article</strong>
+                            <h3 class="mb-0">{{ post.title }}</h3>
+                            <div class="mb-1 text-body-secondary">{{ post.blogpage.date }}</div>
+                            <p class="card-text mb-auto">{{ post.blogpage.body|striptags|truncatewords:"20" }}</p>
+                            
+                            <a href="{{ post.url }}" class="icon-link gap-1 mt-2 icon-link-hover stretched-link">
+                                Continue reading
+                                <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+                            </a>
+                        </div>
+
+                        <div class="col-auto d-none d-lg-block">
+                            <img class="bd-placeholder-img" width="200" height="250" src={{post.blogpage.feed_image.file.url}} />
+                            {% comment %} {{ post.blogpage.feed_image.file}}
+                            {% comment %} {{ post.blogpage.feed_image.usage_url}} {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                {% endfor %}
+            </div>
+
+        </main>
+    {% endblock blogpost %}
+
+
+</div>
+{% endblock content %}

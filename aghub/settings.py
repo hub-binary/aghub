@@ -26,6 +26,7 @@ SECRET_KEY = '&%hs^a(f(3_*pbqw#co^@k&ysa4f*#@8*n!f8%!ej_#!u)zwus'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'easeusinfo.us-east-1.log.aliyuncs.com',
     'agcbarnawa.online',
     '127.0.0.1',
     '.localhost',
@@ -39,11 +40,17 @@ INSTALLED_APPS = [
     'filebrowser',
     'grappelli',
     'wagtail.contrib.forms',
+    'wagtail.contrib.modeladmin',
+    'wagtail.contrib.sitemaps',
+    'wagtail.contrib.routable_page',
+    'wagtail.contrib.table_block',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
     'wagtail.snippets',
+    # 'wagtail.blocks',
+    'wagtail.rich_text',
     'wagtail.documents',
     'wagtail.images',
     'wagtail.search',
@@ -168,6 +175,6 @@ MEDIA_URL = '/files/'
 #  Grappelli Admin Customizations
 GRAPPELLI_ADMIN_TITLE = 'AGC Barnawa'
 
-WAGTAILADMIN_BASE_URL = '/pages/'
+WAGTAILADMIN_BASE_URL = '/'
 WAGTAIL_SITE_NAME = "AG Hub"
 

@@ -6,9 +6,16 @@ from filebrowser.base import FileObject
 
 
 def events_view(request):
-    template = 'public/index.html'
-    context = {
+    template = 'public/events.html'
+    breadcrumbs = [
+        ('Home', '/'),
+        ('Events', request.path),
+    ]
 
+    events = Event.objects.all()
+    context = {
+        'events': events,
+        'breadcrumbs': breadcrumbs,
     }
     return render(request, template, context)
 
@@ -46,7 +53,7 @@ def contact_view(request):
 def weekly_schedule_view(request):
     template = 'public/week.html'
     context = {
-
+        'schedule': None
     }
     return render(request, template, context)
 
@@ -55,9 +62,6 @@ def sermon_download_view(request, slug):
     sermon = Sermon.objects.get(url_title=slug)
     file_path = sermon.file_object.path_full
     
-
-    # Creating a FileObject to get the file's content type
-    file_name = sermon.file_object.name.split('/')[-1]  # Get the file name
     file_object = FileObject(file_path)
     content_type = file_object.filetype
 

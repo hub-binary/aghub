@@ -9,8 +9,7 @@
 		
 				<h1 class="fw-bold mb-5">Sermon Library</h1>
 
-
-			  <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 g-3">
+				<div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 g-3">
 
 				{% for sermon in sermons %}
 				<div class="col">
@@ -26,7 +25,7 @@
 						</p>
 
 						<div class="">
-							<a href="{% url 'public:sermon-download' sermon.url_title %}" type="button" class="btn btn-sm btn-primary">More Details</a>
+							<button type="button" class="btn btn-sm btn-primary">More Details</button>
 							<a href="{% url 'public:sermon-download' sermon.url_title %}?download=true" type="button" class="btn btn-sm btn-danger">Download</a>
 						</div>
 					</div>
