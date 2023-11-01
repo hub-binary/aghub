@@ -91,8 +91,8 @@ admin.site.register(Announcement)
 admin.site.register(Event)
 admin.site.register(Sermon, SermonAdmin)
 admin.site.register(ScheduleItem)
-admin.site.register(BlogPage)
-admin.site.register(BlogPageRelatedLink)
+# admin.site.register(BlogPage)
+# admin.site.register(BlogPageRelatedLink)
 admin.site.register(WeeklySchedule, ScheduleAdmin)
 
 

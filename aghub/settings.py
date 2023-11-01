@@ -11,6 +11,19 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+# import sentry_sdk
+
+# sentry_sdk.init(
+#     dsn="https://8a250e1c9574ffe397492f9b5d96450c@o4504838454640640.ingest.sentry.io/4506144901824512",
+#     # Set traces_sample_rate to 1.0 to capture 100%
+#     # of transactions for performance monitoring.
+#     traces_sample_rate=1.0,
+#     # Set profiles_sample_rate to 1.0 to profile 100%
+#     # of sampled transactions.
+#     # We recommend adjusting this value in production.
+#     profiles_sample_rate=1.0,
+# )
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,14 +33,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&%hs^a(f(3_*pbqw#co^@k&ysa4f*#@8*n!f8%!ej_#!u)zwus'
+SECRET_KEY = '&%hs^a(jsayuipj908ewhfsdjkb@#56f(3_*pbqw#co^@k&ysa4f*#@8*n!f8%!ej_#!u)zwus'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True #True
 
 ALLOWED_HOSTS = [
     'easeusinfo.us-east-1.log.aliyuncs.com',
-    'agcbarnawa.online',
+    '.agcbarnawa.online',
     '127.0.0.1',
     '.localhost',
 ]
@@ -39,26 +52,26 @@ INSTALLED_APPS = [
     'hub',
     'filebrowser',
     'grappelli',
-    'wagtail.contrib.forms',
-    'wagtail.contrib.modeladmin',
-    'wagtail.contrib.sitemaps',
-    'wagtail.contrib.routable_page',
-    'wagtail.contrib.table_block',
-    'wagtail.contrib.redirects',
-    'wagtail.embeds',
-    'wagtail.sites',
-    'wagtail.users',
-    'wagtail.snippets',
+#    'wagtail.contrib.forms',
+#    'wagtail.contrib.modeladmin',
+#    'wagtail.contrib.sitemaps',
+#    'wagtail.contrib.routable_page',
+#    'wagtail.contrib.table_block',
+#    'wagtail.contrib.redirects',
+#    'wagtail.embeds',
+#    'wagtail.sites',
+#    'wagtail.users',
+#    'wagtail.snippets',
     # 'wagtail.blocks',
-    'wagtail.rich_text',
-    'wagtail.documents',
-    'wagtail.images',
-    'wagtail.search',
-    'wagtail.admin',
-    'wagtail',
+#    'wagtail.rich_text',
+#    'wagtail.documents',
+#    'wagtail.images',
+#    'wagtail.search',
+#    'wagtail.admin',
+#    'wagtail',
 
-    'modelcluster',
-    'taggit',
+ #   'modelcluster',
+  #  'taggit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -71,7 +84,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    # 'wagtail.contrib.redirects.middleware.RedirectMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -131,7 +144,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 #  Filebrowser
 FILEBROWSER_DIRECTORY = os.path.join(BASE_DIR, 'files/')
-FILEBROWSER_MAX_UPLOAD_SIZE = 10000000
+FILEBROWSER_MAX_UPLOAD_SIZE = 1073741824
+
+# Set the maximum upload size to 1 GB (in bytes)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 1073741824  # 1 GB in bytes
+FILE_UPLOAD_MAX_MEMORY_SIZE = 1073741824  # 1 GB in bytes
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -152,9 +170,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STORAGES = {
     "default": {
@@ -175,6 +195,6 @@ MEDIA_URL = '/files/'
 #  Grappelli Admin Customizations
 GRAPPELLI_ADMIN_TITLE = 'AGC Barnawa'
 
-WAGTAILADMIN_BASE_URL = '/'
-WAGTAIL_SITE_NAME = "AG Hub"
+#WAGTAILADMIN_BASE_URL = '/'
+#WAGTAIL_SITE_NAME = "AG Hub"
 

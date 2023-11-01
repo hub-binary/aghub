@@ -5,15 +5,15 @@ from filebrowser.fields import FileBrowseUploadField
 from datetime import datetime
 from datetime import timedelta
 from dateutil.relativedelta import relativedelta
-from modelcluster.fields import ParentalKey
+# from modelcluster.fields import ParentalKey
 from django.forms import CheckboxSelectMultiple, SelectMultiple
-from wagtail.models import Page, Orderable
-from wagtail.fields import RichTextField, StreamField
-from wagtail.admin.panels import (
-    FieldPanel, MultiFieldPanel, InlinePanel,
-    PageChooserPanel, MultipleChooserPanel
-    )
-from wagtail.search import index
+# from wagtail.models import Page, Orderable
+# from wagtail.fields import RichTextField, StreamField
+# from wagtail.admin.panels import (
+#     FieldPanel, MultiFieldPanel, InlinePanel,
+#     PageChooserPanel, MultipleChooserPanel
+#     )
+# from wagtail.search import index
 
 
 def make_random(char_length=4):
@@ -126,109 +126,109 @@ class WeeklySchedule(models.Model):
 
 
 
-from wagtail.search import index
+# from wagtail.search import index
 
-class BlogIndex(Page):
-    """
-    A BlogIndex page to display a list of blog posts.
-    """
+# class BlogIndex(Page):
+#     """
+#     A BlogIndex page to display a list of blog posts.
+#     """
     
-    body = RichTextField(blank=True)    
-    featured_blog_posts = models.ManyToManyField("BlogPage", blank=True, related_name='+')
-    # featured_posts = models.ForeignKey("BlogPage", null=True, blank=True, on_delete=models.SET_NULL)
+#     body = RichTextField(blank=True)    
+#     featured_blog_posts = models.ManyToManyField("BlogPage", blank=True, related_name='+')
+#     # featured_posts = models.ForeignKey("BlogPage", null=True, blank=True, on_delete=models.SET_NULL)
 
-    content_panels = Page.content_panels + [
-        FieldPanel('title'),
-        FieldPanel('slug'),
-        FieldPanel('body', classname="full"),
-    ]
+#     content_panels = Page.content_panels + [
+#         FieldPanel('title'),
+#         FieldPanel('slug'),
+#         FieldPanel('body', classname="full"),
+#     ]
 
-    subpage_types = ['BlogPage']
-    template = 'hub/blog_index.html'
+#     subpage_types = ['BlogPage']
+#     template = 'hub/blog_index.html'
     
-    # from .models import BlogPage
-    promote_panels = Page.promote_panels + [
-        MultiFieldPanel([
-            # PageChooserPanel('featured_blog_posts', BlogPage),
-            FieldPanel('featured_blog_posts', widget=SelectMultiple),
-        ], heading="Featured Blog Posts"),
+#     # from .models import BlogPage
+#     promote_panels = Page.promote_panels + [
+#         MultiFieldPanel([
+#             # PageChooserPanel('featured_blog_posts', BlogPage),
+#             FieldPanel('featured_blog_posts', widget=SelectMultiple),
+#         ], heading="Featured Blog Posts"),
 
-    ]
+#     ]
 
-    def get_context(self, request, *args, **kwargs):
-        # Customize the context as needed to display a list of blog posts
-        context = super().get_context(request, *args, **kwargs)
-        children = context['page'].get_children().filter(live=True)
-        context['blogposts'] = children
+#     def get_context(self, request, *args, **kwargs):
+#         # Customize the context as needed to display a list of blog posts
+#         context = super().get_context(request, *args, **kwargs)
+#         children = context['page'].get_children().filter(live=True)
+#         context['blogposts'] = children
         
-        # for post in children:
-        #     print("POST:", dir(post.blogpage.feed_image))
-        context['featured_posts'] = children
-        context['recent_posts'] = children
-        return context
+#         # for post in children:
+#         #     print("POST:", dir(post.blogpage.feed_image))
+#         context['featured_posts'] = children
+#         context['recent_posts'] = children
+#         return context
 
 
 
-class BlogPage(Page):
-    parent = ParentalKey(BlogIndex, blank=True, null=True, on_delete=models.SET_NULL, related_name='featured_posts')
-    body = RichTextField()
-    date = models.DateField("Post date")
-    featured = models.BooleanField(default=False)
-    feed_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+# class BlogPage(Page):
+#     parent = ParentalKey(BlogIndex, blank=True, null=True, on_delete=models.SET_NULL, related_name='featured_posts')
+#     body = RichTextField()
+#     date = models.DateField("Post date")
+#     featured = models.BooleanField(default=False)
+#     feed_image = models.ForeignKey(
+#         'wagtailimages.Image',
+#         null=True,
+#         blank=True,
+#         on_delete=models.SET_NULL,
+#         related_name='+'
+#     )
 
 
-    # Search index configuration
+#     # Search index configuration
 
-    search_fields = Page.search_fields + [
-        index.SearchField('body'),
-        index.FilterField('date'),
-    ]
+#     search_fields = Page.search_fields + [
+#         index.SearchField('body'),
+#         index.FilterField('date'),
+#     ]
 
 
-    # Editor panels configuration
-    content_panels = Page.content_panels + [
-        FieldPanel('date'),
-        FieldPanel('body'),
-        InlinePanel('related_links', heading="Related links", label="Related link"),
-    ]
+#     # Editor panels configuration
+#     content_panels = Page.content_panels + [
+#         FieldPanel('date'),
+#         FieldPanel('body'),
+#         InlinePanel('related_links', heading="Related links", label="Related link"),
+#     ]
 
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        FieldPanel('feed_image'),
-        FieldPanel('featured'),
-    ]
+#     promote_panels = [
+#         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+#         FieldPanel('feed_image'),
+#         FieldPanel('featured'),
+#     ]
 
-    # Parent page / subpage type rules
-    parent_page_types = ['hub.BlogIndex']
-    subpage_types = []
+#     # Parent page / subpage type rules
+#     parent_page_types = ['hub.BlogIndex']
+#     subpage_types = []
 
-    def get_context(self, request, *args, **kwargs):
-        # Customize the context as needed to display a list of blog posts
-        context = super().get_context(request, *args, **kwargs)
-        today = datetime.now()
-        posts = self.get_parent().get_children()
-        posts = posts.filter(live=True).exclude(id=self.id).order_by('-blogpage__date')[:5]
-        context['recent_posts'] = posts
+#     def get_context(self, request, *args, **kwargs):
+#         # Customize the context as needed to display a list of blog posts
+#         context = super().get_context(request, *args, **kwargs)
+#         today = datetime.now()
+#         posts = self.get_parent().get_children()
+#         posts = posts.filter(live=True).exclude(id=self.id).order_by('-blogpage__date')[:5]
+#         context['recent_posts'] = posts
         
-        # context['related_posts'] = children
-        return context
+#         # context['related_posts'] = children
+#         return context
 
 
-class BlogPageRelatedLink(Orderable):
-    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='related_links')
-    name = models.CharField(max_length=255)
-    url = models.URLField()
+# class BlogPageRelatedLink(Orderable):
+#     page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='related_links')
+#     name = models.CharField(max_length=255)
+#     url = models.URLField()
 
-    panels = [
-        FieldPanel('name'),
-        FieldPanel('url'),
-    ]
+#     panels = [
+#         FieldPanel('name'),
+#         FieldPanel('url'),
+#     ]
 
 
 

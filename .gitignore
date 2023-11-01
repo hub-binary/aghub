@@ -1,0 +1,5 @@
+db.sqlite3
+2.0
+=1.25.11
+stderr.log
+passenger_wsgi.py
